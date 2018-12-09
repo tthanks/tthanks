@@ -1,26 +1,33 @@
 import re
 
-with open(r'Original_list_file.txt', encoding='utf-8', ) as file:
+#with open('Original_list_file.txt', encoding='utf-8', ) as file:
 
-    stock_list = open("stock_list.txt", "r")  # 获取a.txt中的股票代码
-    line = stock_list.readline()
-    n = 0
-    while line != "":
-        stockcode = line[:6]
-        n = n + 1
+file = open("Original_list_file.txt", "r")
+content = file.readline()
 
-        stock_price = re.compile('^(?P<remote_ip>[^ ]*)')
-        line = stock_list.readline()
+while content != "":
+    content_initial = content
+    #print(content_initial)
+    #content_process_step1 = re.compile(r'~[0-9]+\.?[0-9]+')
+    content_process_step1 = re.compile(r'(?<=~).+?(?=~)')  ##匹配的字符是XX，但必须满足形式是AXXB这样的字符串
+    #contest_process_step2 = str.lstrip('~');
+    print(content_process_step1.findall(content_initial))
+    #str = content_process_step1.findall(content_initial)
+    #print(content_process_step2.findall(content_initial)
 
-        regMatch = stock_price.match(line)
-        linebits = regMatch.groupdict()
-        print(linebits)
-        for k, v in linebits.items():
-            print
-            k + ": " + v
-        # 读文本的全文并打印出来
-        #i = file.read().splitlines()
-        #for a =
-        #print (i)
-        # 这个时候再读的话，返回EOF
+    #content_spilit = content_initial.split("~")
+    #print(content_spilit)
+    # stock_price = re.compile(r' ' + str(stockcode) + ' ')
+    # print(content)
+    # regMatch = stock_price.findall(content)
+    # print(regMatch)
+    content = file.readline()
+    # 读文本的全文并打印出来
+    #i = file.read().splitlines()
+    #for a =
+    #print (i)
+    # 这个时候再读的话，返回EOF
+#stock_price = re.compile(r'')
+
+#regMatch = stock_price.split(line)
         #print (stock_price)
