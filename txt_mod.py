@@ -1,17 +1,25 @@
 import re
+import datetime
 
 #with open('Original_list_file.txt', encoding='utf-8', ) as file:
 
 file = open("Original_list_file.txt", "r")
 content = file.readline()
+now = datetime.datetime.now()  # 定义时间
+time = now.strftime('%Y-%m-%d')  # 定义时间格式
 
 while content != "":
     content_initial = content
     #print(content_initial)
     #content_process_step1 = re.compile(r'~[0-9]+\.?[0-9]+')
-    content_process_step1 = re.compile(r'(?<=~).+?(?=~)')  ##匹配的字符是XX，但必须满足形式是AXXB这样的字符串
+    content_process_step1 = re.compile(r'(?<=~).+?(?=~)')  # 匹配的字符是XX，但必须满足形式是AXXB这样的字符串
+    content_process_step2 = content_process_step1.findall(content_initial)  # 找到所有符合正则表达式的list元素
+    content_process_step2.insert(0,time)  # 增加日期
+    content_process_step3 = content_process_step2[:6]  # 截取list的前面6位，分别是日期、股票名字、代码、当前价格、昨收、今开
+
     #contest_process_step2 = str.lstrip('~');
-    print(content_process_step1.findall(content_initial))
+    #print(content_process_step1.findall(content_initial))
+    print(content_process_step3)
     #str = content_process_step1.findall(content_initial)
     #print(content_process_step2.findall(content_initial)
 
